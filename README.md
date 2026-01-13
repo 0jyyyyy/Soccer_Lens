@@ -17,7 +17,7 @@
 ## 📈 분석 사례
 
 ### [Ligue 1] RC 랑스(Lens)의 득점 효율 분석
-https://www.notion.so/1-2e77c4ea36718063aef2ccc3f61b25a9
+https://www.notion.so/1-2e75e4cc37e381efb628e1e86e62da31
 
 현재 리그앙 1위를 기록 중인 **RC 랑스**의 성적 비결을 득점 효율성 데이터를 통해 분석했습니다.
 
