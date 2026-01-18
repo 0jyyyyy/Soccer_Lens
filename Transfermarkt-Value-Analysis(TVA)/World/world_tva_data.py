@@ -12,7 +12,7 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 player_list = []
 
 for i in range(1, 21):
-  url = f'https://www.transfermarkt.co.kr/spieler-statistik/wertvollstespieler/marktwertetop?ajax=yw1&page={i}'
+  url = f'https://www.transfermarkt.com/spieler-statistik/wertvollstespieler/marktwertetop?page={i}'
   res = requests.get(url, headers=headers)
 
   # print(res.status_code) # 200 잘 나오는 거 확인
