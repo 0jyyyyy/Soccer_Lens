@@ -6,7 +6,7 @@ df.head()
 # Lens의 홈에서의 슈팅효율, 원정에서의 슈팅효율을 구하자
 # 일단 먼저 Lens의 정보만 뽑아오는 과정
 # df_teams로 2위팀 Paris SG, 꼴찌팀인 Metz
-df_teams = df[['HomeTeam','AwayTeam','FTHG','FTAG','FTR','HS','AS','HST','AST']] # 홈, 원정, 홈 득점, 원정 득점, 승무패, 홈 슈팅, 원정 슈팅, 홈 유효슈팅, 원정 유효슈팅
+# df_teams = df[['HomeTeam','AwayTeam','FTHG','FTAG','FTR','HS','AS','HST','AST']] # 홈, 원정, 홈 득점, 원정 득점, 승무패, 홈 슈팅, 원정 슈팅, 홈 유효슈팅, 원정 유효슈팅
 
 def get_team_stats(df, team_name):
   # 홈경기와 원정경기 필터링
