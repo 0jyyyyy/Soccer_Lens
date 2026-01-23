@@ -22,6 +22,12 @@ def get_team_stats(df, team_name):
   target_eff = (total_goals / total_shots_target * 100) if total_shots_target > 0 else 0
   total_eff = (total_goals / total_shots * 100) if total_shots > 0 else 0
   
+  # 세트피스 (코너킥)
+  total_corners = home['HC'].sum() + away['AC'].sum()
+  # 코너킥 대비 득점 효율
+  corner_eff = (total_goals / total_corners *100) if total_corners > 0 else 0
+
+
   # print(f'[{team_name} 분석 결과]')
   # print(f'전체슈팅: {total_shots} | 유효슈팅: {total_shots_target} | 골: {total_goals}')
   # print(f'유효슈팅비율: {shots_acc:.2f}% | 유효슈팅대비득점: {target_eff:.2f}% | 전체슈팅대비득점: {total_eff:.2f}%')
@@ -29,8 +35,10 @@ def get_team_stats(df, team_name):
 
   # 시각화용 데이터 반환
   return [
+    #------공격 지표--------
     {'Team': team_name, 'Metric': 'Shot Accuracy', 'Value (%)': shots_acc},
     {'Team': team_name, 'Metric': 'Finish Effect', 'Value (%)': target_eff},
     {'Team': team_name, 'Metric': 'Goal Effect', 'Value (%)': total_eff},
+    {'Team': team_name, 'Metric': 'Corner Effect', 'Value (%)':corner_eff}
   ]
 
