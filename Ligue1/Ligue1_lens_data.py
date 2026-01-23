@@ -7,7 +7,7 @@ def get_team_stats(df, team_name):
   home = df[df['HomeTeam'] == team_name]
   away = df[df['AwayTeam'] == team_name]
   
-  # 1. 슈팅 효율
+  # 1. 공격 효율
   total_shots = home['HS'].sum() + away['AS'].sum()
   total_shots_target = home['HST'].sum() + away['AST'].sum()
   total_goals = home['FTHG'].sum() + away['FTAG'].sum()
