@@ -23,8 +23,13 @@ def get_team_stats(df, team_name):
 
   # 3. 시간대별 강점
   # 3_1 전반전 득점 합산
-  # first_half_goals = home['']
-
+  first_half_goals = home['HTHG'].sum() + away['HTAG'].sum()
+  # 3_2 후반전 득점 = 전체 득점 - 전반전 득점
+  second_half_goals = total_goals - first_half_goals
+  # 3_3 전반전 득점 비중 (%)
+  first_half_goals_ratio = (first_half_goals / total_goals * 100) if total_goals > 0 else 0
+  
+  
   # print(f'[{team_name} 분석 결과]')
   # print(f'전체슈팅: {total_shots} | 유효슈팅: {total_shots_target} | 골: {total_goals}')
   # print(f'유효슈팅비율: {shots_acc:.2f}% | 유효슈팅대비득점: {target_eff:.2f}% | 전체슈팅대비득점: {total_eff:.2f}%')
@@ -36,6 +41,7 @@ def get_team_stats(df, team_name):
     {'Team': team_name, 'Metric': '유효슈팅', 'Value (%)': shots_acc},
     {'Team': team_name, 'Metric': '유효슈팅대비득점', 'Value (%)': target_eff},
     {'Team': team_name, 'Metric': '전체슈팅대비득점', 'Value (%)': total_eff},
-    {'Team': team_name, 'Metric': '코너킥대비득점', 'Value (%)':corner_eff}
+    {'Team': team_name, 'Metric': '코너킥대비득점', 'Value (%)':corner_eff},
+    {'Team': team_name, 'Metric': '전반전득점', 'Value (%)':first_half_goals_ratio}
   ]
 
