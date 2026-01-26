@@ -29,6 +29,12 @@ def get_team_stats(df, team_name):
   # 3_3 전반전 득점 비중 (%)
   first_half_goals_ratio = (first_half_goals / total_goals * 100) if total_goals > 0 else 0
   
+  # 4. 수비 및 경고의 상관관계
+  allow_shots_target = home['AST'].sum() + away['HST'].sum() # 홈일때 어웨이팀의 유효슈팅 허용을, 어웨이일때 홈팀의 유효슈팅 허용
+  conceded_goals = home['FTAG'].sum() + away['HTAG'].sum() # 홈일때 어웨이팀의 실점, 어웨이일때 홈팀의 실점
+  total_fouls = home['HF'].sum() + away['AF'].sum() # 파울
+  total_yellows = home['HY'].sum() + away['AY'].sum() # 경고
+  total_reds = home['HR'].sum() + away['AR'].sum() # 퇴장
   
   # print(f'[{team_name} 분석 결과]')
   # print(f'전체슈팅: {total_shots} | 유효슈팅: {total_shots_target} | 골: {total_goals}')
