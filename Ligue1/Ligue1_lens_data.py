@@ -35,6 +35,11 @@ def get_team_stats(df, team_name):
   total_fouls = home['HF'].sum() + away['AF'].sum() # 파울
   total_yellows = home['HY'].sum() + away['AY'].sum() # 경고
   total_reds = home['HR'].sum() + away['AR'].sum() # 퇴장
+
+  # 4_1 수비 지표 계산
+  depense_rate = ((allow_shots_target - conceded_goals) / allow_shots_target * 100) if allow_shots_target > 0 else 0
+  # 4_2 경고 지표 계산
+  fouls_score = total_yellows + (total_reds * 2) # 퇴장은 2배 가중치  
   
   # print(f'[{team_name} 분석 결과]')
   # print(f'전체슈팅: {total_shots} | 유효슈팅: {total_shots_target} | 골: {total_goals}')
@@ -44,10 +49,15 @@ def get_team_stats(df, team_name):
   # 시각화용 데이터 반환
   return [
     #------공격 지표--------
-    {'Team': team_name, 'Metric': '유효슈팅', 'Value (%)': shots_acc},
-    {'Team': team_name, 'Metric': '유효슈팅대비득점', 'Value (%)': target_eff},
-    {'Team': team_name, 'Metric': '전체슈팅대비득점', 'Value (%)': total_eff},
-    {'Team': team_name, 'Metric': '코너킥대비득점', 'Value (%)':corner_eff},
-    {'Team': team_name, 'Metric': '전반전득점', 'Value (%)':first_half_goals_ratio}
+    {'Team': team_name, 'Metric': '유효슈팅', 'Value': shots_acc, 'Type':'Attack'},
+    {'Team': team_name, 'Metric': '유효슈팅대비득점', 'Value': target_eff, 'Type':'Attack'},
+    {'Team': team_name, 'Metric': '전체슈팅대비득점', 'Value': total_eff, 'Type':'Attack'},
+    {'Team': team_name, 'Metric': '코너킥대비득점', 'Value':corner_eff, 'Type':'Set-piece'},
+    {'Team': team_name, 'Metric': '전반전득점', 'Value':first_half_goals_ratio, 'Type':'Timing'},
+
+    #------수비 지표---------
+    {'Team':team_name, 'Metric': '수비지표', 'Value': depense_rate, 'Type':'Defense'},
+    {'Team':team_name, 'Metric': '실점', 'Value':conceded_goals, 'Type':'Defense'},
+    {'Team':team_name, 'Metric': '경고 점수', 'Value': fouls_score, 'Type':'Fouls'}
   ]
 
