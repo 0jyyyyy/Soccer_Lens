@@ -52,7 +52,11 @@ def get_team_stats(df, team_name):
     {'Team': team_name, 'Metric': '유효슈팅', 'Value': shots_acc, 'Type':'Attack'},
     {'Team': team_name, 'Metric': '유효슈팅대비득점', 'Value': target_eff, 'Type':'Attack'},
     {'Team': team_name, 'Metric': '전체슈팅대비득점', 'Value': total_eff, 'Type':'Attack'},
+    
+    #------세트피스---------
     {'Team': team_name, 'Metric': '코너킥대비득점', 'Value':corner_eff, 'Type':'Set-piece'},
+
+    #------전반 or 후반 강세----
     {'Team': team_name, 'Metric': '전반전득점', 'Value':first_half_goals_ratio, 'Type':'Timing'},
 
     #------수비 지표---------
