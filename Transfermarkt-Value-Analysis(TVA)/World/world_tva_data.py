@@ -33,6 +33,7 @@ for i in range(1, 21):
     value = value[1:-1] # '€숫자m' 일때 €의 인덱스는 [1]이고 m은 [-1]이니 이걸 제외하고 저장하는것이다.
 
     player_list.append([number,name,position,age,nationality,team,value]) 
+time.sleep(3)
 
 df_player = pd.DataFrame(player_list, columns=['number','name','position','age','nationality','team','value'])
 
