@@ -6,6 +6,14 @@ import matplotlib
 matplotlib.rcParams['font.family'] = 'Malgun Gothic'
 matplotlib.rcParams['axes.unicode_minus'] = False
 from bs4 import BeautifulSoup
+import os
+
+# 1. 저장할 폴더 경로를 명확히 지정
+target_dic = 'Transfermarkt-Value-Analysis(TVA)/World/data'
+# 2. 폴더가 없으면 직접 만들도록 명령
+if not os.path.exists(target_dic):
+    os.makedirs(target_dic)
+    print(f"'{target_dic}' 폴더가 없어서 새로 만들었습니다.")
 
 # requests.get() 으로 url 정보 요청하기
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36'}
@@ -37,4 +45,7 @@ time.sleep(3)
 
 df_player = pd.DataFrame(player_list, columns=['number','name','position','age','nationality','team','value'])
 
-df_player.to_csv('world_tva.csv', index=False)
+# df_player.to_csv(os.path.join(target_dic,'world_tva.csv'), index=False)
+
+df = pd.read_csv('Transfermarkt-Value-Analysis(TVA)/World/data/world_tva.csv')
+print(df.head())
