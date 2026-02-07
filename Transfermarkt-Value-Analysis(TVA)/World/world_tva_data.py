@@ -1,10 +1,6 @@
 import requests
 import time
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.rcParams['font.family'] = 'Malgun Gothic'
-matplotlib.rcParams['axes.unicode_minus'] = False
 from bs4 import BeautifulSoup
 import os
 
@@ -48,4 +44,7 @@ df_player = pd.DataFrame(player_list, columns=['number','name','position','age',
 # df_player.to_csv(os.path.join(target_dic,'world_tva.csv'), index=False)
 
 df = pd.read_csv('Transfermarkt-Value-Analysis(TVA)/World/data/world_tva.csv')
-print(df.head())
+c = df.groupby('team')
+print(c['value'].sum().sort_values(ascending=False))
+
+
