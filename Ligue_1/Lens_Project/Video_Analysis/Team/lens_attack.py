@@ -36,11 +36,20 @@ while cap.isOpened():
 
     # [공(ball)인 경우]
     if class_id == 32:
+      # 1. AI의 확신도(Confidence Score) 가져오기
+      conf_score = float(box.conf[0])
+      
+      # 중심 좌표 계산
       ball_cx, ball_cy = int((x1 + x2) / 2), int((y1 + y2) / 2)
-      ball_trail.append((ball_cx, ball_cy))
-      # 공 위치 표시
-      cv2.circle(frame, (ball_cx, ball_cy), 8, (255, 255, 255), -1)
-      cv2.circle(frame, (ball_cx, ball_cy), 8, (0, 0, 0), 2)
+      
+      # 2. 강력한 필터링 조건 2가지 적용
+      # 조건 A: AI가 30% 이상(0.3) 확실하다고 판단할 때만 인정 (깃발 같은 애매한 것 탈락)
+      # 조건 B: 화면 상단 20% (관중석 영역)에 있는 공은 무조건 가짜로 간주하고 무시
+      if conf_score > 0.3 and ball_cy > (height * 0.2):
+          ball_trail.append((ball_cx, ball_cy))
+          # 공 위치 표시
+          cv2.circle(frame, (ball_cx, ball_cy), 8, (255, 255, 255), -1)
+          cv2.circle(frame, (ball_cx, ball_cy), 8, (0, 0, 0), 2)
 
     # [사람(Person)인 경우 = 랑스 선수만 필터링]
     if class_id == 0:
