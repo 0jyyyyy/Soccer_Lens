@@ -6,7 +6,7 @@ from ultralytics import YOLO
 model = YOLO('yolov8s.pt')
 
 # 2. 영상 설정
-video_path = r'C:\Users\ojy05\Videos\LENS_video\STADE REN\first\press\team_attack_1.mp4' # 공격 전개 영상
+video_path = r'C:\Users\ojy05\Videos\LENS_video\STADE REN\first\attack\team_attack_1.mp4' # 공격 전개 영상
 output_path = r'C:\Users\ojy05\Videos\LENS_video\STADE REN\output\team_attack_1.mp4'
 
 cap = cv2.VideoCapture(video_path)
