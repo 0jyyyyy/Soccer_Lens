@@ -41,7 +41,13 @@ while cap.isOpened():
       
       # 중심 좌표 계산
       ball_cx, ball_cy = int((x1 + x2) / 2), int((y1 + y2) / 2)
-      
+      # 순간이동 방지 로직
+      if len(ball_trail) > 0:
+        last_x, last_y = ball_trail[-1]
+        dist = ((ball_cx - last_x)**2 + (ball_cy - last_y)**2)**0.5
+        # 이전 공 위치에서 너무 멀리 떨어져 있으면 가짜로 간주하고 무시!
+        if dist > 150: 
+          continue
       # 2. 강력한 필터링 조건 2가지 적용
       # 조건 A: AI가 30% 이상(0.3) 확실하다고 판단할 때만 인정 (깃발 같은 애매한 것 탈락)
       # 조건 B: 화면 상단 20% (관중석 영역)에 있는 공은 무조건 가짜로 간주하고 무시
@@ -53,16 +59,22 @@ while cap.isOpened():
 
     # [사람(Person)인 경우 = 랑스 선수만 필터링]
     if class_id == 0:
+      # 그라운드 출입 통제 (화면 상하단 15% 영역에 있는 사람은 무시)
+      if y2 < (height * 0.15) or y2 > (height * 0.90):
+        continue
+
       shirt_img = frame[y1:int(y1 + (y2-y1)*0.5), x1:x2]
       if shirt_img.size == 0: continue
 
       hsv_shirt = cv2.cvtColor(shirt_img, cv2.COLOR_BGR2HSV)
-      lower_lens = np.array([10, 50, 50])
-      upper_lens = np.array([40, 255, 255])
+            
+      # 노란색/주황색 범위 (조금 더 엄격하게 채도 조정)
+      lower_lens = np.array([10, 80, 50])  # 채도(Saturation) 하한선을 50->80으로 높임
+      upper_lens = np.array([35, 255, 255])
       mask_lens = cv2.inRange(hsv_shirt, lower_lens, upper_lens)
 
-      # 랑스 선수로 판별 되면 리스트에 추가
-      if cv2.countNonZero(mask_lens) > 20:
+      # 랑스 선수 판별
+      if cv2.countNonZero(mask_lens) > 30: # 픽셀 조건도 20->30으로 엄격하게
         cx, cy = int((x1 + x2) / 2), int(y2)
         lens_players.append((cx, cy))
         cv2.circle(frame, (cx, cy), 6, (0, 0, 255), -1) # 발밑에 빨간 점
