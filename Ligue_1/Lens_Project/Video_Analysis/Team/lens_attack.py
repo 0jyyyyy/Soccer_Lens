@@ -82,11 +82,11 @@ while cap.isOpened():
     ball_pts = np.array(ball_trail, np.int32).reshape((-1, 1, 2))
     cv2.polylines(frame, [ball_pts], isClosed=False, color=(255, 255, 255), thickness=4)
 
-    out.write(frame)
-    cv2.imshow('랑스 팀 공격 & 움직임패턴', frame)
+  out.write(frame)
+  cv2.imshow('랑스 팀 공격 & 움직임패턴', frame)
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-      break
+  if cv2.waitKey(1) & 0xFF == ord('q'):
+    break
 cap.release()
 out.release()
 cv2.destroyAllWindows()
