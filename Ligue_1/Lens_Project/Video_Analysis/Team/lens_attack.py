@@ -83,7 +83,7 @@ while cap.isOpened():
     cv2.polylines(frame, [ball_pts], isClosed=False, color=(255, 255, 255), thickness=4)
 
   out.write(frame)
-  cv2.imshow('랑스 팀 공격 & 움직임패턴', frame)
+  cv2.imshow('lens attack & formation shift', frame)
 
   if cv2.waitKey(1) & 0xFF == ord('q'):
     break
