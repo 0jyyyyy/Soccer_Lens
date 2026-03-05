@@ -7,7 +7,7 @@ model = YOLO('yolov8s.pt')
 
 # 2. 영상 설정
 video_path = r'C:\Users\ojy05\Videos\LENS_video\STADE REN\first\attack\team_attack_1.mp4' # 공격 전개 영상
-output_path = r'C:\Users\ojy05\Videos\LENS_video\STADE REN\output\team_attack_1.mp4'
+output_path = r'C:\Users\ojy05\Videos\LENS_video\STADE REN\output\team_attack_2.mp4'
 
 cap = cv2.VideoCapture(video_path)
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -94,14 +94,6 @@ while cap.isOpened():
     for i in range(len(lens_players)):
       for j in range(i + 1, len(lens_players)):
         cv2.line(frame, lens_players[i],lens_players[j],(0, 255, 0), 1)
-
-  # 공의 패스 궤적 시각화 (선수들 위로 날아가는 롱패스 궤적)
-  if len(ball_trail) > 1:
-    # 화면에 너무 길게 남지 않도록 최근 40프레임(약 1.5초)만 유지
-    if len(ball_trail) > 40:
-      ball_trail.pop(0)
-    ball_pts = np.array(ball_trail, np.int32).reshape((-1, 1, 2))
-    cv2.polylines(frame, [ball_pts], isClosed=False, color=(255, 255, 255), thickness=4)
 
   out.write(frame)
   cv2.imshow('lens attack & formation shift', frame)
