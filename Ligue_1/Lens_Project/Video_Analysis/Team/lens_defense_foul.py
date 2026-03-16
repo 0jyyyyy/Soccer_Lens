@@ -25,7 +25,7 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
 
-print('모듈 3: 수비 간격 분석 시작')
+print('모듈 3: 위험상황시 파울 분석 시작')
 
 while cap.isOpened():
   ret, frame = cap.read()
@@ -47,10 +47,10 @@ while cap.isOpened():
 
     w = x2 - x1
     h = y2 - y1
-    shirt_ing = frame[int(y1 + h*0.2) : int(y1 + h*0.5), int(x1 + w*0.3) : int(x2 - w*0.3)]
-    if shirt_ing.size == 0: continue
+    shirt_img = frame[int(y1 + h*0.2) : int(y1 + h*0.5), int(x1 + w*0.3) : int(x2 - w*0.3)]
+    if shirt_img.size == 0: continue
 
-    hsv_shirt = cv2.cvtColor(shirt_ing, cv2.COLOR_BGR2HSV)
+    hsv_shirt = cv2.cvtColor(shirt_img, cv2.COLOR_BGR2HSV)
 
     # [팀 A: 랑스] 노란색/주황색 기준
     lower_lens = np.array([15, 100, 100])
@@ -71,6 +71,7 @@ while cap.isOpened():
       rennes_players.append((cx, cy))
       cv2.circle(frame, (cx, cy), 8, (0, 0, 0), -1) # 렌 검은점
       cv2.circle(frame, (cx, cy), 10, (255, 255, 255), 2) # 테두리 강조
+      
   # 수비 라인 간격(gap) 분석
   if len(lens_players) >= 2:
     # 선수들을 x좌표(왼쪽에서 오른쪽) 순서로 정렬하여 수비 라인 구축
