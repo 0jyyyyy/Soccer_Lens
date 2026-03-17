@@ -25,7 +25,7 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'mp4v'), fps,(width,height))
 
-print("lens_attack 분석 시작...")
+print("모듈 1: 공격패턴 분석 시작...")
 
 while cap.isOpened():
   ret, frame = cap.read()
