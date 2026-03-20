@@ -19,7 +19,6 @@ if not cap.isOpened():
     print("🚨 영상을 찾을 수 없습니다. 경로를 확인해주세요!")
     exit()
 
-cap = cv2.VideoCapture(video_path)
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = int(cap.get(cv2.CAP_PROP_FPS))
