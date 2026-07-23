@@ -1,2 +1,16 @@
 venv/
 __pycache__/
+
+.vscode/
+.idea/
+
+*.log
+logs/
+
+.DS_Store
+
+*.csv
+*.xlsx
+*.sqlite3
+
+.env
